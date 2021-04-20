@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Parpera.TransactionService.Data;
 using Parpera.TransactionService.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Parpera.TransactionService.Api.Controllers
 {
@@ -9,17 +11,18 @@ namespace Parpera.TransactionService.Api.Controllers
     [ApiController]
     public class TransactionsController : ControllerBase
     {
+        private readonly TransactionContext _context;
+
+        public TransactionsController(TransactionContext context)
+        {
+            _context = context;
+        }
+
         // GET: api/<TransactionsController>
         [HttpGet]
         public IEnumerable<Transaction> Get()
         {
-            return new Transaction[]
-            {
-                new Transaction()
-                {
-                    Id = 1, DateTime = DateTime.Parse("2020-03-30 23:53:23"), Description = "Bank Deposit", Amount = 500M, Status = TransactionStatus.Completed
-                }
-            };
+            return _context.Transactions.OrderByDescending(t => t.DateTime);
         }
     }
 }
