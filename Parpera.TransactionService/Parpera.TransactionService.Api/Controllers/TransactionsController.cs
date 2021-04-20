@@ -4,6 +4,7 @@ using Parpera.TransactionService.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Parpera.TransactionService.Api.Controllers
 {
@@ -23,6 +24,26 @@ namespace Parpera.TransactionService.Api.Controllers
         public IEnumerable<Transaction> Get()
         {
             return _context.Transactions.OrderByDescending(t => t.DateTime);
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult> UpdateStatus(int id, [FromBody] TransactionStatus status)
+        {
+            if (!Enum.IsDefined(typeof(TransactionStatus), status))
+            {
+                return BadRequest();
+            }
+
+            var transaction = _context.Transactions.FirstOrDefault(t => t.Id == id);
+            if (transaction == null)
+            {
+                return BadRequest();
+            }
+
+            _context.Transactions.Attach(transaction);
+            transaction.Status = status;
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
