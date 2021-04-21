@@ -8,14 +8,13 @@ Open Parpera.TransactionService.sln in Microsoft Visual Studio and select Build/
 Open Parpera.TransactionService.sln in Microsoft Visual Studio and Press F5
 
 ## Usage
-HTTP Method: Get
+### HTTP Method: Get
 
 URL: https://localhost:44324/api/transactions
 
 Success Response: the list of thransactions ordered by DateTime Descending.
 
-
-HTTP Method: Patch
+### HTTP Method: Patch
 
 URL: https://localhost:44324/api/transactions
 
