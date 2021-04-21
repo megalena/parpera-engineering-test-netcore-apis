@@ -43,7 +43,9 @@ namespace Parpera.TransactionService.UnitTests
             var controller = new TransactionsController(context);
 
             // Act
-            var result = await controller.UpdateStatus(1, (TransactionStatus)5);
+            var result = await controller.UpdateStatus(1, "Invalid");
+
+            //Assert
             Assert.IsType<BadRequestResult>(result);
         }
 
@@ -57,7 +59,9 @@ namespace Parpera.TransactionService.UnitTests
             var controller = new TransactionsController(context);
 
             // Act
-            var result = await controller.UpdateStatus(4, TransactionStatus.Cancelled);
+            var result = await controller.UpdateStatus(4, "Cancelled");
+
+            //Assert
             Assert.IsType<BadRequestResult>(result);
         }
 
@@ -71,7 +75,9 @@ namespace Parpera.TransactionService.UnitTests
             var controller = new TransactionsController(context);
 
             // Act
-            var result = await controller.UpdateStatus(1, TransactionStatus.Cancelled);
+            var result = await controller.UpdateStatus(1, "Cancelled");
+
+            //Assert
             Assert.IsType<OkResult>(result);
             Assert.Equal(TransactionStatus.Cancelled, context.Transactions.FirstOrDefault(t => t.Id == 1).Status);
         }

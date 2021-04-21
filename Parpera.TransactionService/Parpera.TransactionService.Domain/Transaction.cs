@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Parpera.TransactionService.Domain
 {
@@ -12,6 +13,7 @@ namespace Parpera.TransactionService.Domain
 
         public decimal Amount { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TransactionStatus Status { get; set; }
     }
 }

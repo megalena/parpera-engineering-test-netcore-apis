@@ -27,9 +27,9 @@ namespace Parpera.TransactionService.Api.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult> UpdateStatus(int id, [FromBody] TransactionStatus status)
+        public async Task<ActionResult> UpdateStatus(int id, [FromBody] string status)
         {
-            if (!Enum.IsDefined(typeof(TransactionStatus), status))
+            if (!Enum.TryParse<TransactionStatus>(status, out  var statusValue))
             {
                 return BadRequest();
             }
@@ -41,7 +41,7 @@ namespace Parpera.TransactionService.Api.Controllers
             }
 
             _context.Transactions.Attach(transaction);
-            transaction.Status = status;
+            transaction.Status = statusValue;
             await _context.SaveChangesAsync();
             return Ok();
         }
