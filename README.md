@@ -9,14 +9,22 @@ Open Parpera.TransactionService.sln in Microsoft Visual Studio and Press F5
 
 ## Usage
 HTTP Method: Get
+
 URL: https://localhost:44324/api/transactions
+
 Success Response: the list of thransactions ordered by DateTime Descending.
 
+
 HTTP Method: Patch
+
 URL: https://localhost:44324/api/transactions
+
 Query string params: id=[integer]
+
 Body: status
+
 Success Response: 200
+
 Error Response: 400
 
 ## Tests
